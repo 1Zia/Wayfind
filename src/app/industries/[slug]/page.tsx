@@ -11,12 +11,12 @@ import { PROJECTS_DATA } from "@/lib/projects-data";
 
 // ── Video map ─────────────────────────────────────────────────────────────────
 const INDUSTRY_VIDEOS: Record<string, string> = {
-  healthcare: "/videos/industry-healthcare.mp4",
-  education: "/videos/industry-education.mp4",
-  fitness: "/videos/industry-fitness.mp4",
-  food: "/videos/industry-restaurant.mp4",
-  retail: "/videos/industry-retail.mp4",
-  "real-estate": "/videos/industry-realestate.mp4",
+  healthcare: "/videos/industry-healthcare.mp4?v=2",
+  education: "/videos/industry-education.mp4?v=2",
+  fitness: "/videos/industry-fitness.mp4?v=2",
+  food: "/videos/industry-restaurant.mp4?v=2",
+  retail: "/videos/industry-retail.mp4?v=2",
+  "real-estate": "/videos/industry-realestate.mp4?v=2",
 };
 
 // ── Per-industry extra data ──────────────────────────────────────────────────
@@ -383,24 +383,16 @@ export default async function IndustryPage({
         {videoSrc && (
           <BackgroundVideo
             src={videoSrc}
-            className="absolute inset-0 h-full w-full object-cover opacity-60"
+            className="absolute inset-0 h-full w-full object-cover"
           />
         )}
-        {/* Cinematic Vignette Overlay */}
+        {/* Simple Dark Overlay for Text Readability */}
         <div
-          className="absolute inset-0 bg-black/40 pointer-events-none"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent pointer-events-none"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent pointer-events-none"
+          className="absolute inset-0 bg-black/30 pointer-events-none"
           aria-hidden="true"
         />
         <div className="relative mx-auto max-w-7xl px-6 pb-20 pt-36 md:px-10 md:pt-52">
-          <MotionDiv 
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3"
@@ -408,9 +400,11 @@ export default async function IndustryPage({
             <span className="text-4xl filter drop-shadow-xl" aria-hidden>
               {industry.emoji}
             </span>
-            <SectionEyebrow className="text-white/80">{industry.name}</SectionEyebrow>
+            <SectionEyebrow className="text-white/80">
+              {industry.name}
+            </SectionEyebrow>
           </MotionDiv>
-          <MotionH1 
+          <MotionH1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
@@ -418,7 +412,7 @@ export default async function IndustryPage({
           >
             {detail.hero}
           </MotionH1>
-          <MotionP 
+          <MotionP
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
@@ -426,7 +420,7 @@ export default async function IndustryPage({
           >
             {industry.description}
           </MotionP>
-          <MotionDiv 
+          <MotionDiv
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
@@ -513,71 +507,78 @@ export default async function IndustryPage({
             Our results in {industry.name.toLowerCase()}.
           </h2>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {PROJECTS_DATA.filter(p => p.industrySlug === slug).length > 0 ? (
-              PROJECTS_DATA.filter(p => p.industrySlug === slug).map((project) => (
-                <Link
-                  key={project.slug}
-                  href={`/industries/${slug}/${project.slug}`}
-                  data-cursor-hover
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-border transition-shadow duration-300 hover:shadow-xl hover:shadow-black/8"
-                >
-                  {/* Thumbnail */}
-                  <div
-                    className="relative flex aspect-video items-center justify-center overflow-hidden"
-                    style={{ backgroundColor: project.color }}
+            {PROJECTS_DATA.filter((p) => p.industrySlug === slug).length > 0 ? (
+              PROJECTS_DATA.filter((p) => p.industrySlug === slug).map(
+                (project) => (
+                  <Link
+                    key={project.slug}
+                    href={`/industries/${slug}/${project.slug}`}
+                    data-cursor-hover
+                    className="group relative flex flex-col overflow-hidden rounded-2xl border border-border transition-shadow duration-300 hover:shadow-xl hover:shadow-black/8"
                   >
+                    {/* Thumbnail */}
                     <div
-                      className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                      style={{
-                        background: `radial-gradient(circle at 70% 30%, ${project.accent}30 0%, transparent 60%)`,
-                      }}
-                    />
-                    <span
-                      className="relative font-display text-7xl leading-none opacity-20"
-                      style={{ color: project.accent }}
-                      aria-hidden
+                      className="relative flex aspect-video items-center justify-center overflow-hidden"
+                      style={{ backgroundColor: project.color }}
                     >
-                      {project.name.charAt(0)}
-                    </span>
-                    <span className="absolute left-4 top-4 rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-white/60">
-                      {project.industry}
-                    </span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-1 flex-col gap-3 bg-background p-6 transition-colors group-hover:bg-muted/50">
-                    <div className="flex items-start justify-between gap-4">
-                      <h2 className="text-base font-medium">{project.name}</h2>
-                      <ArrowUpRight
-                        size={16}
-                        className="mt-0.5 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground"
+                      <div
+                        className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                        style={{
+                          background: `radial-gradient(circle at 70% 30%, ${project.accent}30 0%, transparent 60%)`,
+                        }}
                       />
+                      <span
+                        className="relative font-display text-7xl leading-none opacity-20"
+                        style={{ color: project.accent }}
+                        aria-hidden
+                      >
+                        {project.name.charAt(0)}
+                      </span>
+                      <span className="absolute left-4 top-4 rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-white/60">
+                        {project.industry}
+                      </span>
                     </div>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {project.description}
-                    </p>
-                    <p
-                      className="mt-auto font-mono text-[12px] font-medium uppercase tracking-[0.1em]"
-                      style={{ color: project.accent }}
-                    >
-                      ↑ {project.keyResult}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.services.map((s) => (
-                        <span
-                          key={s}
-                          className="rounded-full border border-border px-2.5 py-0.5 text-[11px] text-muted-foreground"
-                        >
-                          {s}
-                        </span>
-                      ))}
+
+                    {/* Content */}
+                    <div className="flex flex-1 flex-col gap-3 bg-background p-6 transition-colors group-hover:bg-muted/50">
+                      <div className="flex items-start justify-between gap-4">
+                        <h2 className="text-base font-medium">
+                          {project.name}
+                        </h2>
+                        <ArrowUpRight
+                          size={16}
+                          className="mt-0.5 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground"
+                        />
+                      </div>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {project.description}
+                      </p>
+                      <p
+                        className="mt-auto font-mono text-[12px] font-medium uppercase tracking-[0.1em]"
+                        style={{ color: project.accent }}
+                      >
+                        ↑ {project.keyResult}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {project.services.map((s) => (
+                          <span
+                            key={s}
+                            className="rounded-full border border-border px-2.5 py-0.5 text-[11px] text-muted-foreground"
+                          >
+                            {s}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))
+                  </Link>
+                ),
+              )
             ) : (
               <div className="col-span-full rounded-2xl border border-border bg-background p-8 text-center text-muted-foreground">
-                <p>New case studies for {industry.name.toLowerCase()} are being added soon.</p>
+                <p>
+                  New case studies for {industry.name.toLowerCase()} are being
+                  added soon.
+                </p>
               </div>
             )}
           </div>

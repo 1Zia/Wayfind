@@ -20,31 +20,18 @@ const TRUST_ITEMS = [
 ];
 
 export function Hero() {
-
   return (
     <section className="relative flex min-h-screen w-full items-end overflow-hidden bg-background pt-24 md:items-center md:pt-0">
       <div className="absolute inset-0 z-0">
-        <BackgroundVideo 
-          src="/videos/hero-bg.mp4" 
-          className="h-full w-full object-cover opacity-90 scale-105" 
+        <BackgroundVideo
+          src="/videos/hero-bg.mp4?v=2"
+          className="h-full w-full object-cover"
         />
-        {/* Cinematic Overlays */}
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 to-transparent" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at center, transparent 0%, var(--background) 100%)",
-          }}
-          aria-hidden="true"
-        />
+        {/* Simple Dark Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-black/20" />
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pb-20 md:px-10 md:pb-0">
-
-
         <h1 className="font-display text-display-xl text-balance text-foreground">
           {HEADLINE_LINES.map((line, lineIndex) => {
             const totalIndexBefore = HEADLINE_LINES.slice(0, lineIndex).reduce(
